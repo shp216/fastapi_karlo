@@ -39,16 +39,16 @@ def get_todos_handler(
     )
 
 
-@app.get("/todos/{todo_id}", status_code=200)
-def get_todo_handler(
-        todo_id: int,
-        session: Session = Depends(get_db)
-) -> List[ToDoSchema]:
-    # todo = todo_data.get(todo_id)
-    todo: ToDo | None = get_todo_by_todo_id(session=session, todo_id=todo_id)
-    if todo:
-        return [ToDoSchema.model_validate(todo, from_attributes=True)]
-    raise HTTPException(status_code=404, detail="Todo Not Found")
+# @app.get("/todos/{todo_id}", status_code=200)
+# def get_todo_handler(
+#         todo_id: int,
+#         session: Session = Depends(get_db)
+# ) -> List[ToDoSchema]:
+#     # todo = todo_data.get(todo_id)
+#     todo: ToDo | None = get_todo_by_todo_id(session=session, todo_id=todo_id)
+#     if todo:
+#         return [ToDoSchema.model_validate(todo, from_attributes=True)]
+#     raise HTTPException(status_code=404, detail="Todo Not Found")
 
 
 @app.post("/todos", status_code=201)

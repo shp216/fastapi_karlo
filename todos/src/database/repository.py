@@ -9,8 +9,8 @@ def get_todos(session: Session) -> List[ToDo]:  # ToDo를 List에 담아서 반�
     return list(session.scalars(select(ToDo)))
 
 
-def get_todo_by_todo_id(session: Session, todo_id: int) -> ToDo | None:
-    return session.scalar(select(ToDo).where(ToDo.id == todo_id))
+# def get_todo_by_todo_id(session: Session, todo_id: int) -> ToDo | None:
+#     return session.scalar(select(ToDo).where(ToDo.id == todo_id))
 
 
 def create_todo(session: Session, todo: ToDo) -> ToDo:
