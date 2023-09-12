@@ -62,18 +62,18 @@ def create_todo_handler(
     return [ToDoSchema.model_validate(todo, from_attributes=True)]
 
 
-# @app.post("/karlo/{prompt}", status_code=201)
-# def create_todo_handler(
-#         prompt: str,
-#
-#         session: Session = Depends(get_db)
-# ) -> List[ToDoSchema]:
-#     r = t2i(prompt, "", REST_API_KEY=REST_API_KEY)
-#     img_url = r.get("images")[0].get("image")
-#     todo: ToDo = ToDo.create_karlo(image_url=img_url)  # pydantic -> orm, id=None
-#     todo: ToDo = create_todo(session=session, todo=todo)  # db에 todo값 post후, 다시 read하고 id값 반영해서 todo에 저장
-#     # todo_data[request.id] = request.model_dump()
-#     return [ToDoSchema.model_validate(todo, from_attributes=True)]
+@app.post("/karlo/{prompt}", status_code=201)
+def create_todo_handler(
+        prompt: str,
+
+        session: Session = Depends(get_db)
+) -> List[ToDoSchema]:
+    r = t2i(prompt, "", REST_API_KEY=REST_API_KEY)
+    img_url = r.get("images")[0].get("image")
+    todo: ToDo = ToDo.create_karlo(image_url=img_url)  # pydantic -> orm, id=None
+    todo: ToDo = create_todo(session=session, todo=todo)  # db에 todo값 post후, 다시 read하고 id값 반영해서 todo에 저장
+    # todo_data[request.id] = request.model_dump()
+    return [ToDoSchema.model_validate(todo, from_attributes=True)]
 
 
 @app.patch("/todos/{todo_id}", status_code=200)
